@@ -15,6 +15,20 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
         var errorType = "BadRequest";
         var statusCode = 400;
         var errorMessage = "Некорректный запрос (400)";
+
+        if (context.ModelState.Keys.Any(k => k.Contains("NotFound") || k.Contains("404")))
+        {
+            statusCode = 404;
+            errorType = "NotFound";
+            errorMessage = "Ресурс не найден (404)";
+        }
+        else if (context.ModelState.Keys.Any(k => k.Contains("MethodNotAllowed") || k.Contains("405")))
+        {
+            statusCode = 405;
+            errorType = "MethodNotAllowed";
+            errorMessage = "Метод не поддерживается (405)";
+        }
+
         return new ObjectResult(new WebApiTranslationOfNumberSystems.Controllers.ErrorMessage(errorType, errorMessage, statusCode))
         {
             StatusCode = statusCode
@@ -24,41 +38,31 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 var app = builder.Build();
 
-app.Use(async (context, next) =>
+app.UseRouting();
+
+app.UseStatusCodePages(async context =>
 {
-    try
+    var response = context.HttpContext.Response;
+    if (response.StatusCode == 404)
     {
-        await next();
+        var error = new WebApiTranslationOfNumberSystems.Controllers.ErrorMessage(
+            "NotFound", "Ресурс не найден (404)", 404);
+        response.ContentType = "application/json";
+        await response.WriteAsJsonAsync(error);
     }
-    catch (Exception ex)
+    else if (response.StatusCode == 405)
     {
-        var errorType = ex.GetType().Name;
-        var statusCode = 400;
-        var errorMessage = ex.Message;
-        switch (errorType)
-        {
-            case "BadHttpRequestException":
-                statusCode = 400;
-                errorType = "BadRequest";
-                errorMessage = "Некорректный запрос (400)";
-                break;
-            case "KeyNotFoundException":
-                statusCode = 404;
-                errorType = "NotFound";
-                errorMessage = "Ресурс не найден (404)";
-                break;
-            case "MethodNotAllowedException":
-                statusCode = 405;
-                errorType = "MethodNotAllowed";
-                errorMessage = "Метод не поддерживается (405)";
-                break;
-            default:
-                statusCode = 400;
-                break;
-        }
-        context.Response.StatusCode = statusCode;
-        context.Response.ContentType = "application/json";
-        await context.Response.WriteAsJsonAsync(new WebApiTranslationOfNumberSystems.Controllers.ErrorMessage(errorType, errorMessage, statusCode));
+        var error = new WebApiTranslationOfNumberSystems.Controllers.ErrorMessage(
+            "MethodNotAllowed", "Метод не поддерживается (405)", 405);
+        response.ContentType = "application/json";
+        await response.WriteAsJsonAsync(error);
+    }
+    else if (response.StatusCode == 400)
+    {
+        var error = new WebApiTranslationOfNumberSystems.Controllers.ErrorMessage(
+            "BadRequest", "Некорректный запрос (400)", 400);
+        response.ContentType = "application/json";
+        await response.WriteAsJsonAsync(error);
     }
 });
 

@@ -30,3 +30,4 @@ C:\Users\user\Desktop\Проекты\Задание 11 WEB API\WebApiTranslation
 C:\Users\user\Desktop\Проекты\Задание 11 WEB API\WebApiTranslationOfNumberSystems\obj\Debug\net9.0\WebApiTranslationOfNumberSystems.pdb
 C:\Users\user\Desktop\Проекты\Задание 11 WEB API\WebApiTranslationOfNumberSystems\obj\Debug\net9.0\WebApiTranslationOfNumberSystems.genruntimeconfig.cache
 C:\Users\user\Desktop\Проекты\Задание 11 WEB API\WebApiTranslationOfNumberSystems\obj\Debug\net9.0\ref\WebApiTranslationOfNumberSystems.dll
+C:\Users\user\Desktop\Проекты\Задание 11 WEB API\WebApiTranslationOfNumberSystems\obj\Debug\net9.0\WebApiTranslationOfNumberSystems.sourcelink.json

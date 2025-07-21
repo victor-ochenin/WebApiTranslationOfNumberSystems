@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebApiTranslationOfNumberSystems")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ed67742cc2f3a3f2fa0a6e5b9f116cba54829cdc")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebApiTranslationOfNumberSystems")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebApiTranslationOfNumberSystems")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

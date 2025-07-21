@@ -1,5 +1,3 @@
-using System;
-
 namespace WebApiTranslationOfNumberSystems.Services
 {
     public static class NumberSystemConverter

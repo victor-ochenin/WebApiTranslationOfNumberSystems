@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
-using WebApiTranslationOfNumberSystems.Controllers;
 
 namespace WebApiTranslationOfNumberSystems.Controllers
 {

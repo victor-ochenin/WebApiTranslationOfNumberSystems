@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
 
 namespace WebApiTranslationOfNumberSystems.Controllers
 {
@@ -35,10 +34,12 @@ namespace WebApiTranslationOfNumberSystems.Controllers
                     break;
             }
 
-            context.Result = new ObjectResult(new ErrorMessage(errorType, errorMessage))
+            context.Result = new ObjectResult(new ErrorMessage(errorType, errorMessage, statusCode))
             {
                 StatusCode = statusCode
             };
+            context.HttpContext.Response.Headers["X-Error-Type"] = errorType;
+            context.HttpContext.Response.Headers["X-Error-Status"] = statusCode.ToString();
             context.ExceptionHandled = true;
         }
     }
